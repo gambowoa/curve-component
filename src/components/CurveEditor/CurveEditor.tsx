@@ -1,4 +1,5 @@
 import { useCurveEditorDispatch } from "../../hooks/useCurveEditorDispatch";
+import styles from "./CurveEditor.module.scss";
 import { CurveEditorChart } from "./CurveEditorChart";
 import { ActionType } from "./CurveEditorContext";
 import { CurveEditorInput } from "./CurveEditorInput";
@@ -10,11 +11,13 @@ export const CurveEditor = () => {
   };
 
   return (
-    <div>
+    <div className={styles.CurveEditor}>
       <button onClick={handleClick}>Reset</button>
       <CurveEditorChart />
-      <CurveEditorInput axis="x" label="X: " />
-      <CurveEditorInput axis="y" label="Y: " />
+      <div>
+        <CurveEditorInput axis="x" label="X: " />
+        <CurveEditorInput axis="y" label="Y: " />
+      </div>
     </div>
   );
 };

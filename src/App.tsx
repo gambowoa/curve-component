@@ -13,12 +13,15 @@ export const App = () => {
   ]);
 
   return (
-    <CurveEditorContext.Provider value={curveEditor}>
-      <CurveEditorDispatchContext.Provider value={dispatch}>
-        <div className={styles.wrapper}>
-          <CurveEditor />
-        </div>
-      </CurveEditorDispatchContext.Provider>
-    </CurveEditorContext.Provider>
+    <main>
+      <CurveEditorContext.Provider value={curveEditor}>
+        <CurveEditorDispatchContext.Provider value={dispatch}>
+          <div className={styles.wrapper}>
+            <h1>Curve Editor</h1>
+            <CurveEditor />
+          </div>
+        </CurveEditorDispatchContext.Provider>
+      </CurveEditorContext.Provider>
+    </main>
   );
 };

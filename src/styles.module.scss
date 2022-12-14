@@ -6,4 +6,7 @@
   margin: 0 auto;
   max-width: 512px;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

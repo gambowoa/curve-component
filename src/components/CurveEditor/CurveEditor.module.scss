@@ -1,3 +1,9 @@
+.CurveEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .CurveEditorChart {
   background-color: white;
   background-image: linear-gradient(to right, lightgray 1px, transparent 1px),
@@ -6,10 +12,19 @@
   background-size: 10% 10%;
   border: 1px solid black;
   cursor: crosshair;
+  gap: 16px;
   padding-top: calc(100% - 2px);
   position: relative;
   width: 100%;
   transform: scaleY(-1); // reverse y axis
+}
+
+.CurveEditorInput {
+  display: flex;
+  gap: 4px;
+  input {
+    flex-grow: 1;
+  }
 }
 
 .CurveEditorPoint {

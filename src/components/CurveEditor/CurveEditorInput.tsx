@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect, useState, KeyboardEvent } from "react";
+import styles from "./CurveEditor.module.scss";
+import { ActionType } from "./CurveEditorContext";
 import { useCurveEditorData } from "../../hooks/useCurveEditorData";
 import { useCurveEditorDispatch } from "../../hooks/useCurveEditorDispatch";
-import { ActionType } from "./CurveEditorContext";
 
 export interface CurveEditorInputProps {
   axis: "x" | "y";
@@ -43,7 +44,7 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
   };
 
   return (
-    <>
+    <div className={styles.CurveEditorInput}>
       <label htmlFor={axis}>{label}</label>
       <input
         id={axis}
@@ -55,6 +56,6 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
         type="number"
         value={value}
       />
-    </>
+    </div>
   );
 };
