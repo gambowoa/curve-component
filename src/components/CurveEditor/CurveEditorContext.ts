@@ -1,6 +1,7 @@
 import { createContext, Dispatch } from "react";
 import { clampToRect } from "./CurveEditor.utils";
 import { Point } from "./CurveEditor.types";
+import { nanoid } from "nanoid";
 
 export type CurveEditorContextType = {
   isDragActive: boolean;
@@ -21,6 +22,7 @@ export enum ActionType {
   DELETE_POINT = "delete point",
   DENY_POINT_DELETION = "deny point deletion",
   MOVE_POINT = "move point",
+  RESET = "reset",
   SELECT_POINT = "select point",
 }
 export type CurveEditorDispatchContextType =
@@ -31,6 +33,7 @@ export type CurveEditorDispatchContextType =
   | { type: ActionType.DELETE_POINT; index: number }
   | { type: ActionType.DENY_POINT_DELETION }
   | { type: ActionType.MOVE_POINT; x: number; y: number; index: number }
+  | { type: ActionType.RESET }
   | { type: ActionType.SELECT_POINT; index: number };
 
 export const CurveEditorDispatchContext =
@@ -84,6 +87,14 @@ export const curveEditorReducer = (
       });
       curveEditor.points[action.index].x = newCoords.x;
       curveEditor.points[action.index].y = newCoords.y;
+      return;
+    }
+    case ActionType.RESET: {
+      curveEditor.points = [
+        { x: 0, y: 1, id: nanoid() },
+        { x: 1, y: 0, id: nanoid() },
+      ];
+      curveEditor.selectedPointIndex = 0;
       return;
     }
     case ActionType.SELECT_POINT: {

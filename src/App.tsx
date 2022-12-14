@@ -8,7 +8,7 @@ import { useCurveEditor } from "./hooks/useCurveEditor";
 
 export const App = () => {
   const { curveEditor, dispatch } = useCurveEditor([
-    { x: 0, y: 0.9 },
+    { x: 0, y: 1 },
     { x: 1, y: 0 },
   ]);
 
