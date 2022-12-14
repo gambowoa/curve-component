@@ -30,7 +30,7 @@ export const getCoordinates = (
   return {
     pointCoordinates: {
       x: +((x - rect.left) / rect.width).toFixed(2),
-      y: +(1 - (y - rect.top) / rect.height).toFixed(2), //rerverse y axis later
+      y: +(1 - (y - rect.top) / rect.height).toFixed(2),
     },
     divCoordinates: {
       x: x - rect.left,

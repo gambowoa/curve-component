@@ -50,7 +50,7 @@ export const CurveEditorChart = () => {
     data: DraggableData,
     ref: RefObject<HTMLDivElement>
   ) => {
-    dispatch({ type: ActionType.ACTIVATE_POINT });
+    dispatch({ type: ActionType.DEACTIVATE_POINT });
     const { x, y } = getCoordinates(data.x, data.y, ref).pointCoordinates;
     if (isDragActive) {
       return;
@@ -89,21 +89,25 @@ export const CurveEditorChart = () => {
     >
       <div className={styles.CurveEditorChart} ref={ref}>
         <svg
+          aria-hidden="true"
           className={styles.CurveEditorGraph}
+          focusable="false"
           preserveAspectRatio="none"
           viewBox="0 0 1 1"
         >
           <path d={svgPath as string} vectorEffect="non-scaling-stroke" />
         </svg>
-        {points.map((point, index) => (
-          <CurveEditorPoint
-            id={point.id}
-            index={index}
-            key={point.id}
-            x={point.x}
-            y={point.y}
-          ></CurveEditorPoint>
-        ))}
+        <ul aria-label="Chart points">
+          {points.map((point, index) => (
+            <CurveEditorPoint
+              id={point.id}
+              index={index}
+              key={point.id}
+              x={point.x}
+              y={point.y}
+            ></CurveEditorPoint>
+          ))}
+        </ul>
       </div>
     </DraggableCore>
   );

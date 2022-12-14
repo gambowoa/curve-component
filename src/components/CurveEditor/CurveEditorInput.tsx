@@ -44,8 +44,12 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
   };
 
   return (
-    <div className={styles.CurveEditorInput}>
-      <label htmlFor={axis}>{label}</label>
+    <label
+      aria-label={`Set point ${selectedPointIndex} ${axis} value`}
+      className={styles.CurveEditorInput}
+      htmlFor={axis}
+    >
+      {label}
       <input
         id={axis}
         name={axis}
@@ -56,6 +60,6 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
         type="number"
         value={value}
       />
-    </div>
+    </label>
   );
 };

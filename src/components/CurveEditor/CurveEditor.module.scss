@@ -32,6 +32,8 @@
   overflow: visible;
   position: absolute;
   width: 0;
+  background: none;
+  border: none;
 
   &::before {
     border: 2px solid black;

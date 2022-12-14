@@ -9,6 +9,7 @@ export const useCurveEditorData = () => {
   const { isDragActive, points, selectedPointIndex, shouldDeletePoint } =
     useContext(CurveEditorContext) as CurveEditorContextType;
   const ref = useRef<HTMLDivElement>(null);
+
   const nextPoint = points[selectedPointIndex + 1];
   const previousPoint = points[selectedPointIndex - 1];
   const visiblePoints = points.filter(
@@ -28,15 +29,15 @@ export const useCurveEditorData = () => {
 
   return {
     isDragActive,
-    points,
-    selectedPointIndex,
-    shouldDeletePoint,
-    ref,
+    isPointSelected,
+    isPointVisible,
     nextPoint,
     previousPoint,
-    visiblePoints,
-    isPointVisible,
-    isPointSelected,
+    points,
+    ref,
+    selectedPointIndex,
+    shouldDeletePoint,
     svgPath,
+    visiblePoints,
   };
 };

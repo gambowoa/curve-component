@@ -24,20 +24,29 @@ export const CurveEditorPoint = ({
     dispatch({ type: ActionType.ACTIVATE_POINT });
     dispatch({ type: ActionType.SELECT_POINT, index });
   };
+
+  const handleClick = () => {
+    dispatch({ type: ActionType.SELECT_POINT, index });
+  };
+
   return (
-    <div
-      className={clsx(
-        styles.CurveEditorPoint,
-        isPointSelected(index) && styles.selected
-      )}
-      onPointerDown={() => {
-        handlePointerDown(index);
-      }}
-      style={{
-        left: `${x * 100}%`,
-        opacity: isPointVisible(id) ? 1 : 0,
-        top: `${y * 100}%`,
-      }}
-    />
+    <li>
+      <button
+        aria-label={`Select Point ${index} at (${x}, ${y})`}
+        className={clsx(
+          styles.CurveEditorPoint,
+          isPointSelected(index) && styles.selected
+        )}
+        onClick={handleClick}
+        onPointerDown={() => {
+          handlePointerDown(index);
+        }}
+        style={{
+          left: `${x * 100}%`,
+          opacity: isPointVisible(id) ? 1 : 0,
+          top: `${y * 100}%`,
+        }}
+      />
+    </li>
   );
 };
