@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styles from "./styles.module.scss";
+import { CurveEditor } from "./components/CurveEditor";
+import {
+  CurveEditorContext,
+  CurveEditorDispatchContext,
+} from "./components/CurveEditor/CurveEditorContext";
+import { useCurveEditor } from "./hooks/useCurveEditor";
 
-function App() {
+export const App = () => {
+  const { curveEditor, dispatch } = useCurveEditor([
+    { x: 0, y: 0.9 },
+    { x: 1, y: 0 },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CurveEditorContext.Provider value={curveEditor}>
+      <CurveEditorDispatchContext.Provider value={dispatch}>
+        <div className={styles.wrapper}>
+          <CurveEditor />
+        </div>
+      </CurveEditorDispatchContext.Provider>
+    </CurveEditorContext.Provider>
   );
-}
-
-export default App;
+};

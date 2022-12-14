@@ -1,0 +1,51 @@
+.CurveEditorChart {
+  background-color: white;
+  background-image: linear-gradient(to right, lightgray 1px, transparent 1px),
+    linear-gradient(to bottom, lightgray 1px, transparent 1px);
+  background-origin: border-box;
+  background-size: 10% 10%;
+  border: 1px solid black;
+  cursor: crosshair;
+  padding-top: calc(100% - 2px);
+  position: relative;
+  width: 100%;
+  transform: scaleY(-1); // reverse y axis
+}
+
+.CurveEditorPoint {
+  height: 0;
+  overflow: visible;
+  position: absolute;
+  width: 0;
+
+  &::before {
+    border: 2px solid black;
+    border-radius: 100%;
+    content: "";
+    height: 16px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 16px;
+  }
+}
+
+.selected {
+  &::before {
+    background: black;
+  }
+}
+
+.CurveEditorGraph {
+  display: block;
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+
+  path {
+    fill: none;
+    stroke: black;
+    stroke-linecap: round;
+    stroke-width: 2px;
+  }
+}
