@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, KeyboardEvent } from "react";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 import styles from "./CurveEditor.module.scss";
 import { ActionType } from "./CurveEditorContext";
 import { useCurveEditorData } from "../../hooks/useCurveEditorData";
@@ -15,32 +15,54 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
   const [value, setValue] = useState<string | number>(
     points[selectedPointIndex][axis]
   );
+  const [shouldUseInputValue, setShouldUseInputValue] = useState(false);
+  const previousPoint = points[selectedPointIndex + 1];
+  const nextPoint = points[selectedPointIndex + 1];
 
-  useEffect(() => {
-    axis === "x"
-      ? setValue(points[selectedPointIndex].x)
-      : setValue(points[selectedPointIndex].y);
-  }, [selectedPointIndex, points, axis]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setShouldUseInputValue(true);
+    setValue(e.target.value);
+    let min = 0,
+      max = 0;
+    if (axis === "x") {
+      min = nextPoint === undefined ? 1 : previousPoint?.x || 0;
+      max = previousPoint === undefined ? 0 : nextPoint?.x || 1;
+    }
+    if (
+      isNaN(+e.target.value) ||
+      !(min <= +e.target.value || +e.target.value <= max)
+    ) {
+      return;
+    }
+    dispatch({
+      type: ActionType.MOVE_POINT,
+      x:
+        axis === "x"
+          ? +(+e.target.value).toFixed(2)
+          : points[selectedPointIndex].x,
+      y:
+        axis === "y"
+          ? +(+e.target.value).toFixed(2)
+          : points[selectedPointIndex].y,
+      index: selectedPointIndex,
+    });
+  };
 
   const handleBlur = () => {
     setValue(points[selectedPointIndex][axis]);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: ActionType.MOVE_POINT,
-      x: axis === "x" ? +e.target.value : points[selectedPointIndex].x,
-      y: axis === "y" ? +e.target.value : points[selectedPointIndex].y,
-      index: selectedPointIndex,
-    });
-    setValue(e.target.value);
+    setShouldUseInputValue(false);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setValue(points[selectedPointIndex][axis]);
+      setShouldUseInputValue(false);
       (document.activeElement as HTMLElement).blur();
     }
+  };
+
+  const handleClick = () => {
+    (document.activeElement as HTMLInputElement).select();
   };
 
   return (
@@ -53,12 +75,13 @@ export const CurveEditorInput = ({ axis, label }: CurveEditorInputProps) => {
       <input
         id={axis}
         name={axis}
+        onClick={handleClick}
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         step={0.01}
         type="number"
-        value={value}
+        value={shouldUseInputValue ? value : points[selectedPointIndex][axis]}
       />
     </label>
   );
